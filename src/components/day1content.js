@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import React from 'react'
+import logo from '../logo.svg';
 
-function day1content() {
+function Day1content() {
   const [name, setName] = React.useState('');
   return (
     <div className="Day1">
@@ -34,4 +34,4 @@ function day1content() {
   );
 }
 
-export default day1content;
+export default Day1content;

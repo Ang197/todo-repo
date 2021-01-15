@@ -1,6 +1,20 @@
 import React from 'react'
-import Task from './Tasks'
-const Todo = ({}) => {
+import TodoListings from './TodoListings'
+const style ={
+    box: {
+        width: '40%', 
+        border: 'solid black',
+        borderRadius: 5,
+        padding: '8px 8px'
+
+    },
+    app: {
+        display: 'flex', 
+        justifyContent:'center',
+        marginTop: 8,
+    }
+}
+    const Todo = () => {
     // tasks String[]
     const[tasks, setTasks] = React.useState([])
     const[dones, setDones] = React.useState([])
@@ -30,8 +44,8 @@ const Todo = ({}) => {
     const moveToTasks = (index) => {
         const task = dones.splice(index, 1)
         
-        setDones([... dones])
-        setTasks([... tasks, task])
+        setDones([...dones])
+        setTasks([...tasks, task])
     }
 
     return(
@@ -47,63 +61,22 @@ const Todo = ({}) => {
              </button>
 
 
-            <div style ={{ display: 'flex', 
-            justifyContent:'center',
-            marginTop: 8,
-            padding: '8px 8px'
-            }}>
-
-             <div style = {{ width: '40%', 
-                border: 'solid black',
-                borderRadius: 5,
-                marginRight: 4}}>
-
-              <b>Tasks</b>
-              <hr/>
-
-                {
-                tasks && tasks.length > 0 && tasks.map((v, i)=> {
-                    return(
-                        <Task key = { i } index = { i } data = { v } doneClick = { removeTask}/>
-                    )
-                 })
-                }
+            <div style = {{...style.app  }}>
+             <div style = {{...style.box, marginRight: 4}}>
+              <TodoListings title = { 'Tasks' } 
+              success = {{value: 'Done'}}
+              successClick = { removeTask}
+              data={tasks} 
+              />
          </div>
-
-         <div style = {{ 
-             width: '40%', 
-             border: 'solid black',
-             borderRadius: 5,
-             padding: '8px 8px'}}
-             >
-             
-            <b>
-              Done
-            </b>
-
-         <hr/>
-
          
-         {
-                dones && dones.length > 0 && dones.map((v, i)=> {
-                    return(
-                        <div key= {i}>
-                        { v }
-                        <span style = {{marginLeft: 4}}>
-
-                        <button className= "btn = btn-outline-danger btn-sm"
-                        onClick = {() => removeDone(i)}>
-                            Checkout
-                        </button>
-                        <button className= "btn = btn-outline-warning btn-sm"
-                        onClick = {() => moveToTasks(i) }>
-                            Undo
-                        </button>
-                        </span>
-                    </div>
-                    )
-                 })
-                }
+             <div style = {{...style.box}}>
+              <TodoListings title = { 'Done' } 
+              danger = {{value: 'Checkout'}}
+              dangerClick = { removeDone}
+              warning=  {{value: 'Undo'}}
+              warningClick={ moveToTasks }
+              data={dones}/>
        </div>
       </div>
      </div>
